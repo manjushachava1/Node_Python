@@ -14,7 +14,9 @@ app.get('/', (req, res) => {
 
   // Putting two parameters into the fricken script
   // const python = spawn('python', ['script2.py', 'first', 'second']);
-  const python = spawn('python', ['my_test.py']);
+   const python = spawn('python', ['my_test.py', '5', '15']);
+  // const python = spawn('python', ['my_test.py']);
+
 
   // collect data from script
   python.stdout.on('data', (data) => {
@@ -29,5 +31,5 @@ app.get('/', (req, res) => {
     res.send(largeDataSet.join(''));
   });
 });
-app.listen(port, () => console.log(`Example app listening on port 
+app.listen(port, () => console.log(`Example app listening on port
 ${port}!`));

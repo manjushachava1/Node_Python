@@ -4,10 +4,12 @@ from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 from math import *
+import os
+import sys
 
 # Measuring distance
 
-print('Entering my_test.py\n')
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 
 def dist_3d(p1, p2, preds):
@@ -22,9 +24,21 @@ def dist_3d(p1, p2, preds):
     d = sqrt((x2-x1)**2 + (y2-y1)**2 + (z2-z1)**2)
     return d
 
+def algorithm(preds, ppm=1):
 
-def algorithm(preds, ppm=1, age=4, weight=16):
-    print('going into the algorithm method')
+    # print(age)
+    # print(weight)
+    # print('\n')
+    # print(ageInput)
+    # print(weightInput)
+
+
+    age = int(ageInput)
+    weight = int(weightInput)
+
+
+    # age = ageInput
+    # weight = weightInput
 
     # Get the iris width dimension if form of pixel per metric(ppm) ratio and convert all the distance ratios into real dimensions(in mm)
     # Then put in this algorithm
@@ -33,7 +47,6 @@ def algorithm(preds, ppm=1, age=4, weight=16):
 
     # 1. Age - Take inputs from APP
     # Suppose
-    age = 4  # in months
     # weightage for age
     w_1 = 0.35
 
@@ -46,7 +59,6 @@ def algorithm(preds, ppm=1, age=4, weight=16):
 
     # 2. Weight - Take inputs from APP
     # Suppose
-    weight = 16  # in lbs
     # weightage for weight
     w_2 = 0.05
 
@@ -120,21 +132,23 @@ def algorithm(preds, ppm=1, age=4, weight=16):
     return int(bulb_size), shield_type
 
 
-# if __name__ == '__main__':
-
 # Face alignment algorithm
-print('Starting main code meow\n')
+
+ageInput = sys.argv[1]
+weightInput = sys.argv[2]
+
+print(ageInput)
+print(weightInput)
+
 fa = face_alignment.FaceAlignment(
     face_alignment.LandmarksType._3D, face_detector='sfd', device='cpu')
 
 # Inputing the image
-input_image = io.imread('Baby_Face.JPG')
-print('Inputted image\n')
+input_image = io.imread('BabyFace1.jpeg')
 preds = fa.get_landmarks_from_image(input_image)
-print('Got facial landmarks\n')
 preds = np.asarray(preds)
-print('Arrayizing\n')
 
 bulb_size, shield_type = algorithm(preds)
+#bulb_size, shield_type = algorithm(preds, ageInput, weightInput)
 
 print("bulb_size : ", bulb_size, ", shield_type : ", shield_type)

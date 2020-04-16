@@ -16,9 +16,6 @@ from .models import FAN, ResNetDepth
 from .utils import *
 
 
-print('got into api.py \n')
-
-
 class LandmarksType(Enum):
     """Enum class defining the type of landmarks to detect.
 
@@ -139,7 +136,6 @@ class FaceAlignment:
                 return None
         elif isinstance(image_or_path, torch.Tensor):
             image = image_or_path.detach().cpu().numpy()
-            print('got here')
         else:
             image = image_or_path
 
@@ -157,7 +153,6 @@ class FaceAlignment:
 
         landmarks = []
         for i, d in enumerate(detected_faces):
-            print('doing some enumeration')
             center = torch.FloatTensor(
                 [d[2] - (d[2] - d[0]) / 2.0, d[3] - (d[3] - d[1]) / 2.0])
             center[1] = center[1] - (d[3] - d[1]) * 0.12

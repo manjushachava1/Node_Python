@@ -3,9 +3,13 @@ sys.path.append("..")
 import face_alignment
 from skimage import io
 import numpy as np
+import os
 
 import base64
 from flask import Flask, request, jsonify
+
+
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 def decode(base64_string):
     if isinstance(base64_string, bytes):
@@ -15,7 +19,7 @@ def decode(base64_string):
     img = io.imread(imgdata, plugin='imageio')
     return img
 
-application = Flask(__name__)
+# application = Flask(__name__)
 
 
 input = io.imread('Baby_Face.jpg')
